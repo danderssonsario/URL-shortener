@@ -1,12 +1,15 @@
-import express from 'express'
+import express, { Request, Response, NextFunction} from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
 import 'dotenv/config'
 import { router } from './routes'
 import { connectDB } from './config/mongoose'
 
-try {
+interface ResponseError extends Error {
+  status?: number
+}
 
+try {
   const app = express()
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
@@ -16,7 +19,7 @@ try {
   
   app.use('/', router)
 
-  /* app.use(function (err, req, res, next) {
+  app.use(function (err: ResponseError, req: Request, res: Response, next: NextFunction) {
     err.status = err.status || 500
 
     if (err.status === 500) {
@@ -26,7 +29,7 @@ try {
     return res.status(err.status).json({
       message: err.message,
     })
-  }) */
+  })
 
   app.listen(process.env.PORT, async () => {
     await connectDB() 
