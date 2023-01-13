@@ -1,11 +1,12 @@
 import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
-import * as dotenv from 'dotenv'
+import 'dotenv/config'
 import { router } from './routes'
+import { connectDB } from './config/mongoose'
 
 try {
-  dotenv.config()
+
   const app = express()
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
@@ -27,7 +28,8 @@ try {
     })
   }) */
 
-  app.listen(process.env.PORT, () => {
+  app.listen(process.env.PORT, async () => {
+    await connectDB() 
     console.log(`Server running at http://localhost:${process.env.PORT}`)
     console.log('Press Ctrl-C to terminate...')
   })
