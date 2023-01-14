@@ -17,7 +17,7 @@ const schema = new mongoose.Schema(
       type: String,
       unique: true,
       required: true,
-      default: 'https://<domain>/' + generateString(5),
+      default: generateString(5)
     },
     destinationURL: {
       type: String,
@@ -45,4 +45,4 @@ schema.virtual('id').get(function () {
   return this._id.toHexString()
 })
 
-export default mongoose.model('ShortURL', schema)
+export default mongoose.model<URL>('ShortURL', schema)

@@ -3,7 +3,7 @@ import createHttpError from 'http-errors'
 import ShortURL from '../models/url'
 
 export class URLController {
-  
+
   async create(req: Request, res: Response, next: NextFunction) {
     try {
       const { destinationURL } = req.body
@@ -17,4 +17,19 @@ export class URLController {
       next(err)
     }
   }
+
+  async redirect(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { shortId } = req.params
+
+      const shortURL = await ShortURL.findOne({ shortId })
+
+      if (!shortURL) next(createHttpError(404))
+
+      res.status(204).redirect(shortURL?.destinationURL as string)
+    } catch (err) {
+      next(err)
+    }
+  }
+
 }
