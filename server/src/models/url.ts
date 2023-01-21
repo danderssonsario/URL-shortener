@@ -1,8 +1,8 @@
 import mongoose, { Document } from 'mongoose'
-import { generateString } from '../util/alphanumeric'
+import { nanoid } from 'nanoid'
 
 export interface URL extends Document {
-  shortURL: string,
+  shortId: string,
   destinationURL: string
 }
 
@@ -17,7 +17,7 @@ const schema = new mongoose.Schema(
       type: String,
       unique: true,
       required: true,
-      default: generateString(5)
+      default: nanoid(5)
     },
     destinationURL: {
       type: String,

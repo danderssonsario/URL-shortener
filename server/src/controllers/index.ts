@@ -6,9 +6,9 @@ export class URLController {
 
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const { destinationURL } = req.body
+      const { destinationURL, shortId } = req.body
 
-      const shortURL = new ShortURL({ destinationURL })
+      const shortURL = new ShortURL({ destinationURL, shortId })
       await shortURL.save()
 
       const location = new URL(`${req.protocol}://${req.get('host')}${req.baseUrl}/${shortURL.id}`)
