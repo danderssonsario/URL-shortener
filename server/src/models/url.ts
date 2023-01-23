@@ -2,7 +2,7 @@ import mongoose, { Document } from 'mongoose'
 import { nanoid } from 'nanoid'
 
 export interface URL extends Document {
-  shortId: string,
+  slug: string,
   destinationURL: string
 }
 
@@ -13,7 +13,7 @@ interface retObject extends Object {
 
 const schema = new mongoose.Schema(
   {
-    shortId: {
+    slug: {
       type: String,
       unique: true,
       required: true,
