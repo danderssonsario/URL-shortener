@@ -4,7 +4,9 @@ function App() {
 
   return (
     <div className="App">
-      
+      <h1 className="text-3xl font-bold underline flex justify-center">
+      Hello world!
+    </h1>
     </div>
   )
 }
