@@ -51,7 +51,6 @@ export class URLController {
       try {
         const { id } = req.params
 
-        if (!mongoose.Types.ObjectId.isValid(id)) next(createHttpError(400))
         const editedShortURL = await ShortURL.findByIdAndUpdate(id, req.body, { new:true })
         
         if (!editedShortURL) next(createHttpError(404))
@@ -65,8 +64,6 @@ export class URLController {
     async delete(req: Request, res: Response, next: NextFunction) {
       try {
         const { id } = req.params
-
-        if (!mongoose.Types.ObjectId.isValid(id)) throw createHttpError(400)
 
         await ShortURL.findByIdAndDelete(id)
 

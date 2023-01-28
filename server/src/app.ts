@@ -7,6 +7,7 @@ import { connectDB } from './config/mongoose'
 
 interface ResponseError extends Error {
   status?: number
+  message: string
 }
 
 try {
